@@ -12,6 +12,7 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class KafkaQueueTest
@@ -57,6 +58,7 @@ public class KafkaQueueTest
         System.exit(0);
 	}
 	@Test
+	@Ignore
 	public void test()
 	throws Exception
 	{

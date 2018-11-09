@@ -4,12 +4,14 @@ import static org.junit.Assert.*;
 
 import java.util.Queue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ApacheKafkaTest
 {
 
 	@Test
+	@Ignore
 	public void testPush()
 	throws Exception
 	{
