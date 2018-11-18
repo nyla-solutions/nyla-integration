@@ -1,3 +1,9 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
@@ -7,6 +13,16 @@ version = '0.0.1'
 
 description = """nyla-kafka"""
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 tasks.withType(JavaCompile) {
@@ -15,13 +31,79 @@ tasks.withType(JavaCompile) {
 
 
 
-repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
-}
+
 dependencies {
     compile group: 'org.apache.kafka', name: 'kafka_2.12', version:'2.0.0'
+    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-streams
+    compile group: 'org.apache.kafka', name: 'kafka-streams', version: '2.0.0'
+    
     compile group: 'com.github.nyla-solutions', name: 'nyla.solutions.core', version:'1.1.8'
-    compile group: 'org.apache.kafka', name: 'kafka-streams', version:'2.0.0'
     testCompile group: 'junit', name: 'junit', version:'4.12'
+}
+
+artifacts {
+    archives jar
+    //archives sourceJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'my-library'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                description = 'Java based integration utility solutions'
+                url = 'https://github.com/nyla-solutions/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'ggreen'
+                        name = 'Gregory Green'
+                        email = 'ggreen@g-solutions.net'
+                    }
+                }
+                scm {
+                    //connection = 'scm:git:git://example.com/my-library.git'
+                    //developerConnection = 'scm:git:ssh://example.com/my-library.git'
+                    url = 'https://github.com/nyla-solutions'
+                }
+            }
+
+
+        }
+    }
+    repositories {
+        maven {
+    mavenCentral()
+    mavenLocal()
+url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                username  ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html4', true)
+    }
 }

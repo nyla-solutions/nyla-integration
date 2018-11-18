@@ -1,1 +1,2 @@
 rootProject.name = 'nyla-kafka'
+enableFeaturePreview('STABLE_PUBLISHING')
