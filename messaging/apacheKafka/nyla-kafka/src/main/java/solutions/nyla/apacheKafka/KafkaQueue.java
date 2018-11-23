@@ -2,16 +2,15 @@ package solutions.nyla.apacheKafka;
 
 import java.time.Duration;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Properties;
-import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import nyla.solutions.core.util.Config;
 
-public class KafkaQueue<E>  extends LinkedList<E>  implements Queue<E>, Runnable
+public class KafkaQueue<E>  extends LinkedBlockingQueue<E>  implements Runnable
 {
 	/**
 	 * 
