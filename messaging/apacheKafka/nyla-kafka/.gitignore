@@ -1,2 +1,6 @@
 build/
 gradle.properties
+target/
+.project
+.settings/
+.classpath
