@@ -1,6 +1,5 @@
 package solutions.nyla.apacheKafka;
 
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -46,7 +45,7 @@ public class KafkaQueue<E>  extends LinkedBlockingQueue<E>  implements Runnable
             	 
                  try
 				 {
-					ConsumerRecords<String, String> records = consumer.poll(Duration.ZERO);
+					ConsumerRecords<String, String> records = consumer.poll(timeoutMs);
 					 for (ConsumerRecord<String, String> record : records)
 					 {
 					     System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
@@ -67,6 +66,7 @@ public class KafkaQueue<E>  extends LinkedBlockingQueue<E>  implements Runnable
 	
 	private long kakfaQueueSleepMs = Config.getPropertyLong("kakfaQueueSleepMs", 5);
 	private final String topic;
+	private int timeoutMs = Config.getPropertyInteger("apacheKafkaTimeout",0);
 	
 	
 }

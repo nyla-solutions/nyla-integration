@@ -1,0 +1,24 @@
+topic : inbound
+
+spring:
+  cloud:
+    stream:
+      defaultBinder: rabbit
+      kafka:
+        binder:
+          brokers: localhost
+          defaultBrokerPort: 9092
+      rabbit:
+        binder:
+          nodes: localhost:7777
+  security:
+    user:
+      name: guest
+      password: guest
+  rabbitmq:
+    host: localhost
+    port: 7777
+    username: guest
+    password: guest 
+    
+ 

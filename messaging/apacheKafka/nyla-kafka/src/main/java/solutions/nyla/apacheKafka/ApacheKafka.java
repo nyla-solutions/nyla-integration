@@ -2,6 +2,7 @@ package solutions.nyla.apacheKafka;
 
 import java.util.Properties;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -43,7 +44,7 @@ public class ApacheKafka
 		 }
 		 		
 	}
-	public <E> Queue<E> queue(String topic)
+	public <E> BlockingQueue<E> queue(String topic)
 	{
 		KafkaQueue<E> q = new KafkaQueue<>(topic);
 		new Thread(q).start();
