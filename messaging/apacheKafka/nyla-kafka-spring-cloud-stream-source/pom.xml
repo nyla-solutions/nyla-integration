@@ -34,7 +34,11 @@
 	    </dependencies>
 	</dependencyManagement>
 	<dependencies>
-
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-configuration-processor</artifactId>
+		    <optional>true</optional>
+		</dependency>
          <dependency>
                         <groupId>com.github.nyla-solutions</groupId>
                         <artifactId>nyla-kafka</artifactId>

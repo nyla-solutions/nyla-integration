@@ -1,7 +1,6 @@
 package solutions.nyla.apacheKafka;
 
 import java.util.Properties;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 
 import org.apache.kafka.clients.producer.KafkaProducer;

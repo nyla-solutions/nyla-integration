@@ -49,14 +49,22 @@ public class KakfaSourceConfig
 	public MessageSource<String> timeMessageSource() 
 	{
 	    return () -> { 
-	    	String msg = this.queue.poll();
-	    	
-	    	if(msg == null)
-	    		return null;
-	    	
-	    	System.out.println("topic:"+topic+" message:"+msg);
-	    	
-	    	return MessageBuilder.withPayload(msg).build();
+	    	try
+			{
+				String msg = this.queue.take();
+				
+				if(msg == null)
+					return null;
+				
+				System.out.println("topic:"+topic+" message:"+msg);
+				
+				return MessageBuilder.withPayload(msg).build();
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 	    };
 	}//------------------------------------------------
 
