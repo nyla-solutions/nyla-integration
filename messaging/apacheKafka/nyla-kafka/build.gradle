@@ -9,7 +9,7 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 
 group = 'com.github.nyla-solutions'
-version = '0.0.3'
+version = '0.0.4-SNAPSHOT'
 
 description = """nyla-kafka"""
 

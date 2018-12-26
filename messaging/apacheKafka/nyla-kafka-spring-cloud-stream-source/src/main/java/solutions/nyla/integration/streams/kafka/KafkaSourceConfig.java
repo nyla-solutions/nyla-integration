@@ -17,9 +17,9 @@ import org.springframework.messaging.support.MessageBuilder;
 import solutions.nyla.apacheKafka.ApacheKafka;
 
 @Configuration
-public class KakfaSourceConfig
+public class KafkaSourceConfig
 {
-	String topic;
+	private String topic;
 	
 	@Autowired
 	ApacheKafka apacheKafka;
@@ -28,11 +28,16 @@ public class KakfaSourceConfig
 	BlockingQueue<String> queue;
 	
 	@Bean
-	ApacheKafka kakfa()
+	ApacheKafka kakfa(KakfaSourceProperties properties)
 	{
-		return ApacheKafka.connect();
+		return ApacheKafka.connect(
+		properties.getBootStrapServersConfig(),
+		properties.getGroupId());
+		
 	}//------------------------------------------------
 	
+
+
 	@Bean("queue")
 	BlockingQueue<String> queue(ApacheKafka apacheKafka, Environment env)
 	{
@@ -51,6 +56,8 @@ public class KakfaSourceConfig
 	    return () -> { 
 	    	try
 			{
+	    		System.out.println(this.getClass().getName()+": Getting records");
+	    		
 				String msg = this.queue.take();
 				
 				if(msg == null)

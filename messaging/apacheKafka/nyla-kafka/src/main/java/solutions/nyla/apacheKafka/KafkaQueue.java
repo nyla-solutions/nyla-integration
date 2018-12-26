@@ -15,21 +15,23 @@ public class KafkaQueue<E>  extends LinkedBlockingQueue<E>  implements Runnable
 	 * 
 	 */
 	private static final long serialVersionUID = 3824535058258178886L;
-
-	KafkaQueue(String topic)
+	
+	KafkaQueue(String topic, String bootStrapServersConfig, String kafkaGroupId)
 	{
 		this.topic = topic;
-	}
+		
+		this.bootStrapServersConfig = bootStrapServersConfig;
+		this.kafkaGroupId = kafkaGroupId;
+		
+	}//------------------------------------------------
 	
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public void run()
-	{
-
- 
+	{ 
     	 Properties props = new Properties();
-         props.put("bootstrap.servers", Config.getProperty("BOOTSTRAP_SERVERS_CONFIG"));
-         props.put("group.id", Config.getProperty("KAFKA_GROUP_ID"));
+         props.put("bootstrap.servers", this.bootStrapServersConfig);
+         props.put("group.id", this.kafkaGroupId);
          props.put("enable.auto.commit", "true");
          props.put("auto.commit.interval.ms", "1000");
          //props.put("auto.offset.reset", "earliest");
@@ -67,6 +69,8 @@ public class KafkaQueue<E>  extends LinkedBlockingQueue<E>  implements Runnable
 	private long kakfaQueueSleepMs = Config.getPropertyLong("kakfaQueueSleepMs", 5);
 	private final String topic;
 	private int timeoutMs = Config.getPropertyInteger("apacheKafkaTimeout",0);
+	private final String bootStrapServersConfig;
+	private final String kafkaGroupId;
 	
 	
 }
