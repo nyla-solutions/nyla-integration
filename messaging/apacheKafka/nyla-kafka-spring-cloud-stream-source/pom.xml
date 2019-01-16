@@ -5,7 +5,7 @@
 
 	<groupId>com.github.nyla-solutions</groupId>
 	<artifactId>nyla-kafka-spring-cloud-stream-source</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.4</version>
 	<packaging>jar</packaging>
 
 	<name>nyla-kafka-spring-cloud-stream-source</name>
@@ -42,7 +42,7 @@
          <dependency>
                         <groupId>com.github.nyla-solutions</groupId>
                         <artifactId>nyla-kafka</artifactId>
-                        <version>0.0.4-SNAPSHOT</version>
+                        <version>0.0.4</version>
                         <exclusions>
                         	<exclusion>
                         		<groupId>org.slf4j</groupId>
